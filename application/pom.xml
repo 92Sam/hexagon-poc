@@ -16,6 +16,10 @@
             <artifactId>lombok-mapstruct-binding</artifactId>
             <version>0.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
     </dependencies>
     
     <properties>
