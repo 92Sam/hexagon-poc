@@ -19,7 +19,6 @@
     <module>infraestructure</module>
     <module>application</module>
     <module>boot</module>
-    <module>event</module>
   </modules>
   <packaging>pom</packaging>
 
