@@ -1,0 +1,219 @@
+openapi: 3.0.1
+info:
+  version: 1.4.4
+  title: API specification
+  contact:
+    name: Jesus E. Finol
+    email: jfinol02@gmail.com
+security: [ ]
+paths:
+  '/v1/cron/events':
+    get:
+      tags:
+        - event
+      summary: Get all event.
+      operationId: getEvents
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventArray'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  '/v1/cron/event':
+    post:
+      tags:
+        - event
+      summary: Create event
+      operationId: createEvent
+      responses:
+        '201':
+          description: Record created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Enter the required fileds.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+        description: Created event object.
+        required: true
+  '/v1/cron/event/{id}':
+    get:
+      tags:
+        - event
+      summary: Get event by id
+      operationId: getEventById
+      parameters:
+        - name: id
+          in: path
+          description: Enter an id to retrive the record.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+      tags:
+        - event
+      summary: Updated event
+      operationId: updateEvent
+      parameters:
+        - name: id
+          in: path
+          description: id that need to be updated
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Record updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Enter the required fileds.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+        description: Updated event object.
+        required: true
+    delete:
+      tags:
+        - event
+      summary: Delete event by id
+      operationId: deleteEvent
+      parameters:
+        - name: id
+          in: path
+          description: The id that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Record deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    Event:
+      type: object
+      required:
+       - id
+       - startDate
+       - countryCode
+       - tenant
+      properties:
+        id:
+          type: string
+          example: GLOBAL::MECCOLAC::COLABORAEVENT::31EA870E-220A-4F32-9977-4988A2055F28::PRO
+          format: string
+          description: Event id
+        startDate:
+          type: string
+          format: '2017-07-21 17:32:28'
+          example: '2017-07-21 17:32:28'
+          description: Event start date.
+        countryCode:
+          type: string
+          example: MX
+          description: Country code.
+        tenant:
+          type: string
+          example: Bershka
+          description: Tenant.
+        eventType:
+          type: string
+          example: PROD::Precio cortado
+          description: Event type.
+        executionStatus:
+          type: string
+          example: true
+          description: Execution status.
+        executionType:
+          type: string
+          example: API
+          description: Execution type.
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    EventArray:
+         type: array
+         items:
+          $ref: '#/components/schemas/Event'

@@ -10,6 +10,7 @@ import org.springframework.util.MimeTypeUtils;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+// TODO comprobar en los tests que el resultado es el esperado, no solo que el estado es 200
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PriceControllerTest {

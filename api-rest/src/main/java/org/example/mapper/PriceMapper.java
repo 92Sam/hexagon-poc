@@ -4,9 +4,6 @@ import org.example.dto.PriceDTO;
 import org.example.entity.Price;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
-
 @Mapper
 public interface PriceMapper {
     
